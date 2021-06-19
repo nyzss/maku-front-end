@@ -23,6 +23,9 @@ const Logout = ({ getLoggedIn }) => {
       <Button
         bgColor={useColorModeValue("red.300", "red.300")}
         onClick={() => handleLogout()}
+        _hover={{
+          bg: "red.400",
+        }}
       >
         Logout
       </Button>

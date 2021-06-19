@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import {
   Box,
@@ -27,12 +27,12 @@ import AuthContext from "../../context/AuthContext";
 import CurrentUserNav from "./CurrentUserNav";
 
 const Navbar = () => {
+  const { loggedIn, getLoggedIn } = useContext(AuthContext);
+
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-
-  const { loggedIn, getLoggedIn } = useContext(AuthContext);
 
   return (
     <div>
@@ -84,7 +84,7 @@ const Navbar = () => {
                 Home
               </Button>
             </Link>
-            <Link href="/novels">
+            <Link href="/notes">
               <Button
                 color={useColorModeValue("gray.700", "white")}
                 variant="link"

@@ -194,6 +194,9 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
                 mr={3}
                 type="submit"
                 isLoading={isLoading}
+                disabled={
+                  !email || !password || !username || !passwordConfirmation
+                }
               >
                 Create Account
               </Button>
