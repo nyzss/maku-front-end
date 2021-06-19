@@ -19,7 +19,7 @@ import {
   Icon,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -27,7 +27,7 @@ import { useMutation } from "react-query";
 import { MdRemoveCircle } from "react-icons/md";
 
 const LoginModal = ({ getLoggedIn, loggedIn }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
 
@@ -36,12 +36,12 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const loginUser = async ({ username, password }) => {
+  const loginUser = async ({ email, password }) => {
     const postLoginUser = await axios({
       method: "POST",
       url: "http://localhost:5000/auth/login",
       data: {
-        username,
+        email,
         password,
       },
     }).catch((err) => {
@@ -57,20 +57,18 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
     });
   };
 
-  /*
-   * firstly do an endpoint in the backend to get the current user
-   * (like the check logged in but it returns user info)
-   * and get the user info on a getServerSideProps or useEffect however you want to
-   * of course with react query as we want to cache them
-   */
-
-  const { mutateAsync: mutateLogin, reset, isSuccess } = useMutation(loginUser);
+  const {
+    mutateAsync: mutateLogin,
+    reset,
+    isSuccess,
+    data,
+  } = useMutation(loginUser);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     const userData = {
-      username,
+      email,
       password,
     };
 
@@ -110,11 +108,12 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
           <Box as="form" onSubmit={handleLogin}>
             <ModalBody pb={6}>
               <FormControl>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <Input
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Username"
+                  value={email}
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="maku@example.moe"
                 />
               </FormControl>
 

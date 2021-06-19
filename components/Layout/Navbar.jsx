@@ -52,7 +52,7 @@ const Navbar = () => {
             as="h1"
             size="lg"
             fontFamily="monospace"
-            color={useColorModeValue("gray.700", "white")}
+            color={useColorModeValue("red.400", "red.200")}
             letterSpacing={"tighter"}
           >
             maku

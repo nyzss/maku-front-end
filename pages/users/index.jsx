@@ -1,8 +1,14 @@
 import Head from "next/head";
+
+import { useContext } from "react";
+import AuthContext from "./../../context/AuthContext";
+
+import User from "../../components/Users/User";
+
 import { useSelector } from "react-redux";
 
 const CurrentUser = () => {
-  // const decoded = jwt.decode(token);
+  const { loggedIn, getLoggedIn } = useContext(AuthContext);
   const { userData } = useSelector((state) => state.user);
 
   return (
@@ -10,9 +16,7 @@ const CurrentUser = () => {
       <Head>
         <title> {userData.username} | maku</title>
       </Head>
-      <div>
-        <h1>lemao</h1>
-      </div>
+      <User userData={userData} getLoggedIn={getLoggedIn} loggedIn={loggedIn} />
     </>
   );
 };
