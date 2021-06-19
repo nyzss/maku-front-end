@@ -11,13 +11,13 @@ const AddTodo = () => {
     <>
       <Stack spacing="4" p="4" borderRadius="xl" shadow="2xl">
         <Input
-          placeholder="Add todo"
+          placeholder="todo title"
           bgColor={useColorModeValue("gray.100", "gray.700")}
-          color={useColorModeValue("gray.800", "gray.800")}
         />
         <Textarea
-          placeholder="todo content"
+          placeholder="short description"
           bgColor={useColorModeValue("gray.100", "gray.700")}
+          resize="none"
         />
         <Button w="25%" bgColor="red.300">
           Add todo

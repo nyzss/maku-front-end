@@ -1,4 +1,14 @@
-import { Box, Text, Flex, Button, useColorModeValue } from "@chakra-ui/react";
+import {
+  HStack,
+  Box,
+  Text,
+  Flex,
+  Button,
+  useColorModeValue,
+  Icon,
+} from "@chakra-ui/react";
+
+import { IoCloseSharp } from "react-icons/io5";
 
 const SingleTodo = () => {
   return (
@@ -7,28 +17,34 @@ const SingleTodo = () => {
         w="md"
         py={2}
         px={4}
-        bg={useColorModeValue("red.100", "gray.700")}
+        bg={useColorModeValue("gray.200", "gray.700")}
         shadow="lg"
         rounded="lg"
       >
-        <Text
-          color={useColorModeValue("gray.800", "white")}
-          fontSize={{ base: "2xl", md: "xl" }}
-          mt={{ base: 2, md: 0 }}
-          fontWeight="bold"
-        >
-          Todo title
-        </Text>
+        <HStack>
+          <Text
+            color={useColorModeValue("gray.700", "white")}
+            fontSize={{ base: "2xl", md: "xl" }}
+            mt={{ base: 2, md: 0 }}
+            fontWeight="bold"
+            cursor="pointer"
+          >
+            Todo title
+          </Text>
+          <Flex justifyContent="end">
+            <Icon fontSize="xl" as={IoCloseSharp} />
+          </Flex>
+        </HStack>
 
-        <Text mt={2} color={useColorModeValue("gray.600", "gray.200")}>
+        <Text my={2} color={useColorModeValue("gray.600", "gray.200")}>
           Todo brief
         </Text>
 
-        <Flex justifyContent="end" mt={2}>
+        {/* <Flex justifyContent="end" mt={2}>
           <Button bgColor={useColorModeValue("red.300", "red.300")}>
             Details
           </Button>
-        </Flex>
+        </Flex> */}
       </Box>
     </Flex>
   );

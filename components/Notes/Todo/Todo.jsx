@@ -11,6 +11,7 @@ import {
   Box,
   Text,
   HStack,
+  Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -35,22 +36,17 @@ const Todo = () => {
           <SingleTodo />
           <SingleTodo />
           <Flex justifyContent="center">
-            <Box
-              p="3"
-              borderRadius="md"
-              bgColor="red.300"
+            <Button
               onClick={() => setAddTodoIsOpen(!addTodoIsOpen)}
-              cursor="pointer"
-              w="30%"
+              color={useColorModeValue("red.400", "red.300")}
+              variant="ghost"
             >
-              <HStack>
-                <Icon
-                  as={addTodoIsOpen ? BiDownArrowAlt : BiUpArrowAlt}
-                  fontSize="xl"
-                />
-                <Text>Add todo</Text>
-              </HStack>
-            </Box>
+              <Icon
+                as={addTodoIsOpen ? BiDownArrowAlt : BiUpArrowAlt}
+                fontSize="xl"
+              />
+              <Text>Add todo</Text>
+            </Button>
           </Flex>
           <Collapse in={addTodoIsOpen}>
             <AddTodo />
