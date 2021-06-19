@@ -69,6 +69,7 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
     mutateAsync: mutateRegister,
     reset,
     isSuccess,
+    isLoading,
   } = useMutation(registerUser);
 
   const handleCreateAccount = (e) => {
@@ -192,6 +193,7 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
                 bgColor={useColorModeValue("red.300", "red.300")}
                 mr={3}
                 type="submit"
+                isLoading={isLoading}
               >
                 Create Account
               </Button>

@@ -62,6 +62,8 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
     reset,
     isSuccess,
     data,
+    status,
+    isLoading,
   } = useMutation(loginUser);
 
   const handleLogin = (e) => {
@@ -168,6 +170,7 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
                 bgColor={useColorModeValue("red.300", "red.300")}
                 mr={3}
                 type="submit"
+                isLoading={isLoading}
               >
                 Login
               </Button>

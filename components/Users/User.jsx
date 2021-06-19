@@ -60,10 +60,7 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
     if (!loggedIn) {
       router.push("/");
     }
-
-    // setNewImageUrl(userData.avatarUrl);
-    // setNewBio(userData.bio);
-  }, [userData, data, isLoading]);
+  }, [userData]);
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -146,9 +143,12 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                   <FormControl>
                     <FormLabel>New avatar</FormLabel>
                     <Input
+                      borderColor="red.300"
                       placeholder="https://imgur.com/a/Jd5XjhQ"
                       value={newImageUrl}
                       onChange={(e) => setNewImageUrl(e.target.value)}
+                      focusBorderColor="red.300"
+                      _hover={{ borderColor: "gray.700" }}
                     />
                     <FormHelperText>
                       If the image you see is not the one you uploaded, that
@@ -156,6 +156,9 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                     </FormHelperText>
                     <FormLabel>Bio</FormLabel>
                     <Textarea
+                      _hover={{ borderColor: "gray.700" }}
+                      focusBorderColor="red.300"
+                      borderColor="red.300"
                       placeholder="Write something about yourself!"
                       value={newBio}
                       onChange={(e) => setNewBio(e.target.value)}
