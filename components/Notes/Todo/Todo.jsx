@@ -13,12 +13,35 @@ import {
   HStack,
   Button,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
+import axios from "axios";
+import { useQuery } from "react-query";
+import { useRouter } from "next/router";
 
-const Todo = () => {
+const getAllTodos = async () => {
+  const fetchTodos = await axios.get("http://localhost:5000/todo");
+
+  return fetchTodos.data;
+};
+
+const Todo = ({ loggedIn, getLoggedIn }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    getLoggedIn();
+    if (!loggedIn) {
+      router.push("/");
+    }
+  }, []);
+
   const [addTodoIsOpen, setAddTodoIsOpen] = useState(false);
+
+  const { data, isSuccess, isLoading, refetch } = useQuery(
+    "getAllTodos",
+    getAllTodos
+  );
 
   return (
     <>
@@ -33,8 +56,10 @@ const Todo = () => {
         rounded={{ lg: "lg" }}
       >
         <Stack spacing="4">
-          <SingleTodo />
-          <SingleTodo />
+          {data &&
+            data.map((todoData) => (
+              <SingleTodo key={todoData._id} todoData={todoData} />
+            ))}
           <Flex justifyContent="center">
             <Button
               onClick={() => setAddTodoIsOpen(!addTodoIsOpen)}
