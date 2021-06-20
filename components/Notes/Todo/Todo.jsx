@@ -12,9 +12,7 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
-import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import axios from "axios";
 import { useQuery } from "react-query";
 
@@ -25,8 +23,6 @@ const getAllTodos = async () => {
 };
 
 const Todo = ({ loggedIn, getLoggedIn }) => {
-  const [addTodoIsOpen, setAddTodoIsOpen] = useState(false);
-
   const { data, isSuccess, isLoading, refetch } = useQuery(
     "getAllTodos",
     getAllTodos
@@ -49,22 +45,8 @@ const Todo = ({ loggedIn, getLoggedIn }) => {
             data.map((todoData) => (
               <SingleTodo key={todoData._id} todoData={todoData} />
             ))}
-          <Flex justifyContent="center">
-            <Button
-              onClick={() => setAddTodoIsOpen(!addTodoIsOpen)}
-              color={useColorModeValue("red.400", "red.300")}
-              variant="ghost"
-            >
-              <Icon
-                as={addTodoIsOpen ? BiDownArrowAlt : BiUpArrowAlt}
-                fontSize="xl"
-              />
-              <Text>Add todo</Text>
-            </Button>
-          </Flex>
-          <Collapse in={addTodoIsOpen}>
-            <AddTodo />
-          </Collapse>
+
+          <AddTodo />
         </Stack>
       </Box>
     </>

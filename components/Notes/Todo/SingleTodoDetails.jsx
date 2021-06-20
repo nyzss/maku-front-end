@@ -12,6 +12,7 @@ import {
   useDisclosure,
   Text,
   ButtonGroup,
+  Input,
 } from "@chakra-ui/react";
 
 import axios from "axios";
@@ -25,6 +26,8 @@ const SingleTodoDetails = ({ todoData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [editing, setEditing] = useState(false);
 
   const handleDelete = () => {
     setIsLoading(true);
@@ -52,13 +55,22 @@ const SingleTodoDetails = ({ todoData }) => {
         </Button>
       </Flex>
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal size="sm" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{todoData.title}</ModalHeader>
+          <ModalHeader>
+            {!editing && <Text>{todoData.title}</Text>}
+            {editing && (
+              <Input
+                w="xs"
+                size="md"
+                placeholder="Write your todo title here!"
+              />
+            )}
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>{todoData.description}</Text>
+            {!editing && <Text>{todoData.description}</Text>}
 
             <Text
               color={useColorModeValue("gray.600", "gray.400")}
@@ -72,7 +84,9 @@ const SingleTodoDetails = ({ todoData }) => {
           <ModalFooter>
             <ButtonGroup>
               <Button onClick={onClose}>Close</Button>
-              <Button variant="ghost">Edit</Button>
+              <Button variant="ghost" onClick={() => setEditing(!editing)}>
+                Edit
+              </Button>
               <Button
                 onClick={handleDelete}
                 isLoading={isLoading}

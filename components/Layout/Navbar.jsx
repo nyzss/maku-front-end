@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 import {
   Box,
   Stack,
@@ -11,7 +9,6 @@ import {
   useColorMode,
   useDisclosure,
   ButtonGroup,
-  Slide,
 } from "@chakra-ui/react";
 
 import Link from "next/link";
@@ -23,15 +20,16 @@ import { BiSun, BiMoon } from "react-icons/bi";
 import LoginModal from "../Auth/LoginModal";
 import RegisterModal from "../Auth/RegisterModal";
 import Logout from "./../Auth/Logout";
-import AuthContext from "../../context/AuthContext";
 import CurrentUserNav from "./CurrentUserNav";
+
+import AuthContext from "../../context/AuthContext";
+import { useContext } from "react";
 
 const Navbar = () => {
   const { loggedIn, getLoggedIn } = useContext(AuthContext);
-
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
 
   return (

@@ -5,10 +5,16 @@ import {
   Textarea,
   Box,
   useColorModeValue,
+  Collapse,
+  Flex,
+  Icon,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
+
+import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 
 const AddTodo = () => {
   const [title, setTitle] = useState("");
@@ -24,7 +30,7 @@ const AddTodo = () => {
     });
   };
 
-  const { mutateAsync: mutateTodo } = useMutation(sendTodoData);
+  const { mutateAsync: mutateTodo, isLoading } = useMutation(sendTodoData);
 
   const handleAddTodo = (e) => {
     e.preventDefault();
@@ -35,31 +41,56 @@ const AddTodo = () => {
     };
     mutateTodo(todoData).then(() => {
       queryClient.invalidateQueries("getAllTodos");
+      setTitle("");
+      setDescription("");
     });
   };
 
+  const [addTodoIsOpen, setAddTodoIsOpen] = useState(false);
+
   return (
     <>
-      <Box as="form" onSubmit={handleAddTodo}>
-        <Stack spacing="4" p="4" borderRadius="xl" shadow="2xl">
-          <Input
-            placeholder="todo title"
-            bgColor={useColorModeValue("gray.100", "gray.700")}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+      <Flex>
+        <Button
+          onClick={() => setAddTodoIsOpen(!addTodoIsOpen)}
+          color={useColorModeValue("red.400", "red.300")}
+          variant="ghost"
+        >
+          <Icon
+            as={addTodoIsOpen ? BiDownArrowAlt : BiUpArrowAlt}
+            fontSize="xl"
           />
-          <Textarea
-            placeholder="short description"
-            bgColor={useColorModeValue("gray.100", "gray.700")}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            resize="none"
-          />
-          <Button type="submit" w="25%" bgColor="red.300">
-            Add todo
-          </Button>
-        </Stack>
-      </Box>
+          <Text>Add todo</Text>
+        </Button>
+      </Flex>
+      <Collapse in={addTodoIsOpen}>
+        <Box w={{ base: "xs", md: "md" }} as="form" onSubmit={handleAddTodo}>
+          <Stack spacing="4" p="4" borderRadius="xl" shadow="2xl">
+            <Input
+              placeholder="todo title"
+              bgColor={useColorModeValue("gray.100", "gray.700")}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Textarea
+              placeholder="short description"
+              bgColor={useColorModeValue("gray.100", "gray.700")}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              resize="none"
+            />
+            <Button
+              disabled={!title}
+              isLoading={isLoading}
+              type="submit"
+              w="25%"
+              bgColor="red.300"
+            >
+              Add todo
+            </Button>
+          </Stack>
+        </Box>
+      </Collapse>
     </>
   );
 };

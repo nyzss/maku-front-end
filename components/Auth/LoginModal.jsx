@@ -78,6 +78,8 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
       reset();
       getLoggedIn();
       onClose();
+      setEmail("");
+      setPassword("");
     });
   };
 
@@ -102,7 +104,7 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
         </Button>
       )}
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} size={"sm"} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent mt="24">
           <ModalHeader>Login</ModalHeader>

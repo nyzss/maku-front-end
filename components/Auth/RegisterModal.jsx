@@ -87,6 +87,10 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
       reset();
       getLoggedIn();
       onClose();
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setPasswordConfirmation("");
     });
   };
 
@@ -104,7 +108,7 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
         </Button>
       )}
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal size={"sm"} isCentered isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
         <ModalContent>
