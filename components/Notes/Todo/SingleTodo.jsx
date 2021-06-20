@@ -1,33 +1,10 @@
-import {
-  HStack,
-  Box,
-  Text,
-  Flex,
-  Button,
-  useColorModeValue,
-  Icon,
-  SlideFade,
-  ButtonGroup,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { HStack, Box, Text, Flex, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { IoCloseSharp } from "react-icons/io5";
+import SingleTodoDetails from "./SingleTodoDetails";
 
 const SingleTodo = ({ todoData }) => {
   const [onTodo, setOnTodo] = useState(false);
-
-  const handleDelete = () => {
-    console.log(todoData._id);
-
-    axios({
-      url: "http://localhost:5000/todo/delete",
-      method: "DELETE",
-      data: {
-        todoId: todoData._id,
-      },
-    });
-  };
 
   return (
     <Flex
@@ -54,7 +31,7 @@ const SingleTodo = ({ todoData }) => {
             {todoData.title}
           </Text>
 
-          <SlideFade in={onTodo}>
+          {/* <SlideFade in={onTodo}>
             <Flex justifyContent="end">
               <ButtonGroup spacing="4">
                 <Button size="sm" bgColor="red.300">
@@ -65,18 +42,14 @@ const SingleTodo = ({ todoData }) => {
                 </Button>
               </ButtonGroup>
             </Flex>
-          </SlideFade>
+          </SlideFade> */}
         </HStack>
 
         <Text my={2} color={useColorModeValue("gray.600", "gray.200")}>
           {todoData.description}
         </Text>
 
-        {/* <Flex justifyContent="end" mt={2}>
-          <Button bgColor={useColorModeValue("red.300", "red.300")}>
-            Details
-          </Button>
-        </Flex> */}
+        <SingleTodoDetails todoData={todoData} />
       </Box>
     </Flex>
   );
