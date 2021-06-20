@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/userSlice";
 
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Logout = ({ getLoggedIn }) => {
   const router = useRouter();

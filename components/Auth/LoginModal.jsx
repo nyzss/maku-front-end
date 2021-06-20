@@ -19,7 +19,7 @@ import {
   Icon,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import axios from "axios";
 
@@ -57,14 +57,7 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
     });
   };
 
-  const {
-    mutateAsync: mutateLogin,
-    reset,
-    isSuccess,
-    data,
-    status,
-    isLoading,
-  } = useMutation(loginUser);
+  const { mutateAsync: mutateLogin, reset, isLoading } = useMutation(loginUser);
 
   const handleLogin = (e) => {
     e.preventDefault();

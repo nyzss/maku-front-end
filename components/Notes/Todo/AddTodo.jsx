@@ -9,6 +9,8 @@ import {
   Flex,
   Icon,
   Text,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -28,6 +30,8 @@ const AddTodo = () => {
       url: "http://localhost:5000/todo",
       data: { title: title, description: description },
     });
+
+    //i'm not returning anything, thats why i'm not getting data in the useMutation, fuck me i'm so retarded
   };
 
   const { mutateAsync: mutateTodo, isLoading } = useMutation(sendTodoData);
@@ -66,19 +70,25 @@ const AddTodo = () => {
       <Collapse in={addTodoIsOpen}>
         <Box w={{ base: "xs", md: "md" }} as="form" onSubmit={handleAddTodo}>
           <Stack spacing="4" p="4" borderRadius="xl" shadow="2xl">
-            <Input
-              placeholder="todo title"
-              bgColor={useColorModeValue("gray.100", "gray.700")}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <Textarea
-              placeholder="short description"
-              bgColor={useColorModeValue("gray.100", "gray.700")}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              resize="none"
-            />
+            <FormControl>
+              <FormLabel>Title</FormLabel>
+              <Input
+                placeholder="Todo title here!"
+                bgColor={useColorModeValue("gray.100", "gray.700")}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Description</FormLabel>
+              <Textarea
+                placeholder="Todo description/content here!"
+                bgColor={useColorModeValue("gray.100", "gray.700")}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                resize="none"
+              />
+            </FormControl>
             <Button
               disabled={!title}
               isLoading={isLoading}

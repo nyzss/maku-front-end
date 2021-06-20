@@ -68,7 +68,6 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
   const {
     mutateAsync: mutateRegister,
     reset,
-    isSuccess,
     isLoading,
   } = useMutation(registerUser);
 

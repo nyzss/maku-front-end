@@ -30,19 +30,6 @@ const SingleTodo = ({ todoData }) => {
           >
             {todoData.title}
           </Text>
-
-          {/* <SlideFade in={onTodo}>
-            <Flex justifyContent="end">
-              <ButtonGroup spacing="4">
-                <Button size="sm" bgColor="red.300">
-                  Edit
-                </Button>
-                <Button onClick={handleDelete} size="sm" bgColor="red.300">
-                  Delete
-                </Button>
-              </ButtonGroup>
-            </Flex>
-          </SlideFade> */}
         </HStack>
 
         <Text my={2} color={useColorModeValue("gray.600", "gray.200")}>

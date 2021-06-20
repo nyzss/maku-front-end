@@ -12,7 +12,7 @@ import {
   useDisclosure,
   Text,
   ButtonGroup,
-  Input,
+  HStack,
 } from "@chakra-ui/react";
 
 import axios from "axios";
@@ -21,17 +21,17 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 
+import SingleTodoEditing from "./SingleTodoEditing";
+
 const SingleTodoDetails = ({ todoData }) => {
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [editing, setEditing] = useState(false);
-
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setIsLoading(true);
-    axios({
+    await axios({
       url: "http://localhost:5000/todo/delete",
       method: "DELETE",
       data: {
@@ -59,18 +59,16 @@ const SingleTodoDetails = ({ todoData }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            {!editing && <Text>{todoData.title}</Text>}
-            {editing && (
-              <Input
-                w="xs"
-                size="md"
-                placeholder="Write your todo title here!"
-              />
-            )}
+            <HStack>
+              <Text>{todoData.title}</Text>
+              <Flex justifyContent="end">
+                <SingleTodoEditing />
+              </Flex>
+            </HStack>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {!editing && <Text>{todoData.description}</Text>}
+            <Text>{todoData.description}</Text>
 
             <Text
               color={useColorModeValue("gray.600", "gray.400")}
@@ -84,9 +82,6 @@ const SingleTodoDetails = ({ todoData }) => {
           <ModalFooter>
             <ButtonGroup>
               <Button onClick={onClose}>Close</Button>
-              <Button variant="ghost" onClick={() => setEditing(!editing)}>
-                Edit
-              </Button>
               <Button
                 onClick={handleDelete}
                 isLoading={isLoading}

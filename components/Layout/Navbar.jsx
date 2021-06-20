@@ -19,7 +19,6 @@ import { BiSun, BiMoon } from "react-icons/bi";
 
 import LoginModal from "../Auth/LoginModal";
 import RegisterModal from "../Auth/RegisterModal";
-import Logout from "./../Auth/Logout";
 import CurrentUserNav from "./CurrentUserNav";
 
 import AuthContext from "../../context/AuthContext";
@@ -124,8 +123,7 @@ const Navbar = () => {
 
             {loggedIn === true && (
               <>
-                <CurrentUserNav />
-                <Logout getLoggedIn={getLoggedIn} />
+                <CurrentUserNav getLoggedIn={getLoggedIn} />
               </>
             )}
           </HStack>

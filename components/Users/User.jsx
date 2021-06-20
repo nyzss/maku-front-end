@@ -34,9 +34,11 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
   const [newImageUrl, setNewImageUrl] = useState(`${userData.avatarUrl}`);
   const [newBio, setNewBio] = useState(`${userData.bio}`);
 
+  const [succesAlert, setSuccesAlert] = useState(false);
+
   const editUserData = async ({ bio, avatarUrl }) => {
     const postUserData = await axios({
-      method: "POST",
+      method: "PUT",
       url: "http://localhost:5000/users/edit",
       data: {
         bio,
@@ -45,13 +47,14 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
     }).catch((err) => {
       console.log(err);
     });
+
+    return postUserData.data;
   };
   const {
     mutateAsync: mutateEdit,
     isLoading,
     status,
     data,
-    context,
   } = useMutation(editUserData);
 
   useEffect(() => {
@@ -70,9 +73,13 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
       avatarUrl: newImageUrl,
     };
 
-    mutateEdit(changedData).then((res) => {
-      console.log(res);
+    mutateEdit(changedData).then(() => {
       setEditing(false);
+      setSuccesAlert(true);
+      setTimeout(() => {
+        setSuccesAlert(false);
+      }, 3000);
+      console.log(data);
     });
   };
 
@@ -195,9 +202,9 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
           </Box>
         </Box>
       </Flex>
-      <Slide direction="bottom" in={data} style={{ zIndex: 10 }}>
+      {/* <Slide direction="bottom" in={succesAlert} style={{ zIndex: 10 }}>
         <SuccessAlert succesMessage={data} />
-      </Slide>
+      </Slide> */}
     </>
   );
 };
