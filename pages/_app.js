@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { AuthContextProvider } from "../context/AuthContext";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -23,11 +23,24 @@ Router.events.on("routeChangeError", () => NProgress.done());
 import GetCurrentUser from "../components/Users/GetCurrentUser";
 
 const MyApp = ({ Component, pageProps }) => {
+  const theme = extendTheme({
+    colors: {
+      maku: {
+        50: "#FFF5F5",
+        100: "#FED7D7",
+        200: "#FEB2B2",
+        300: "#FC8181",
+        400: "#F56565",
+        500: "#FC8181",
+      },
+    },
+  });
+
   return (
     <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <ChakraProvider>
+          <ChakraProvider theme={theme}>
             <Head>
               <link
                 rel="shortcut icon"

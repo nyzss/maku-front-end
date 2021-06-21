@@ -77,6 +77,7 @@ const AddTodo = () => {
                 bgColor={useColorModeValue("gray.100", "gray.700")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                w="95%"
               />
             </FormControl>
             <FormControl>
@@ -87,6 +88,7 @@ const AddTodo = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 resize="none"
+                w="95%"
               />
             </FormControl>
             <Button

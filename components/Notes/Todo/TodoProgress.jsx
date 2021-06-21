@@ -20,10 +20,11 @@ const TodoProgress = ({ todoData }) => {
   return (
     <>
       <Progress
-        colorScheme="pink"
+        colorScheme="maku"
         size="sm"
         value={completedTodos}
         max={todoData.length}
+        borderRadius="xl"
       />
     </>
   );

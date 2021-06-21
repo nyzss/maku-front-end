@@ -55,7 +55,7 @@ const SingleTodoDetails = ({ todoData }) => {
         </Button>
       </Flex>
 
-      <Modal size="sm" isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal size="xl" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>

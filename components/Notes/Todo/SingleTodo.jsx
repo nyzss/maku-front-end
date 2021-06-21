@@ -53,7 +53,7 @@ const SingleTodo = ({ todoData }) => {
             mt={{ base: 2, md: 0 }}
             fontWeight={todoData.completed ? "normal" : "bold"}
             color={useColorModeValue(
-              todoData.completed ? "red.300" : "gray.300",
+              todoData.completed ? "gray.300" : "red.400",
               todoData.completed ? "gray.600" : "red.300"
             )}
             cursor="pointer"
