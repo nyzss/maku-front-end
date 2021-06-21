@@ -62,7 +62,7 @@ const SingleTodoDetails = ({ todoData }) => {
             <HStack>
               <Text>{todoData.title}</Text>
               <Flex justifyContent="end">
-                <SingleTodoEditing />
+                <SingleTodoEditing todoData={todoData} />
               </Flex>
             </HStack>
           </ModalHeader>

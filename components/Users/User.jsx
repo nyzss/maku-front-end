@@ -79,7 +79,6 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
       setTimeout(() => {
         setSuccesAlert(false);
       }, 3000);
-      console.log(data);
     });
   };
 
@@ -156,6 +155,7 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       focusBorderColor="red.300"
                       _hover={{ borderColor: "gray.700" }}
+                      disabled={!newImageUrl}
                     />
                     <FormHelperText>
                       If the image you see is not the one you uploaded, that
@@ -169,6 +169,7 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                       placeholder="Write something about yourself!"
                       value={newBio}
                       onChange={(e) => setNewBio(e.target.value)}
+                      disabled={!newBio}
                     />
 
                     <Button

@@ -18,14 +18,21 @@ import {
   FormLabel,
   Box,
   Button,
+  FormHelperText,
 } from "@chakra-ui/react";
 
 import { EditIcon } from "@chakra-ui/icons";
 
-const SingleTodoEditing = () => {
+import axios from "axios";
+
+import { useQueryClient } from "react-query";
+
+const SingleTodoEditing = ({ todoData }) => {
+  const queryClient = useQueryClient();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(`${todoData.title}`);
+  const [description, setDescription] = useState(`${todoData.description}`);
 
   const updateEditingData = async ({ title, description, todoId }) => {
     const editingData = await axios({
@@ -37,11 +44,13 @@ const SingleTodoEditing = () => {
         todoId,
       },
     });
+
+    return editingData.data;
   };
 
   const {
     mutateAsync: mutateEdit,
-    isLoading: editIsLoading,
+    isLoading,
     data,
   } = useMutation(updateEditingData);
 
@@ -55,9 +64,8 @@ const SingleTodoEditing = () => {
     };
 
     mutateEdit(editedTodo).then(() => {
-      setTitle("");
-      setDescription("");
       onClose();
+      queryClient.invalidateQueries("getAllTodos");
     });
   };
 
@@ -73,7 +81,12 @@ const SingleTodoEditing = () => {
           <IconButton size="sm" icon={<EditIcon />} />
         </PopoverTrigger>
 
-        <PopoverContent bgColor="gray.700" shadow="xl" p={5}>
+        <PopoverContent
+          borderColor="red.300"
+          bgColor="gray.700"
+          shadow="2xl"
+          p={5}
+        >
           <PopoverArrow />
           <PopoverCloseButton />
           <Box as="form" onSubmit={handleEdit}>
@@ -96,8 +109,16 @@ const SingleTodoEditing = () => {
                 focusBorderColor="red.300"
                 onChange={(e) => setDescription(e.target.value)}
               />
+              <FormHelperText>
+                If you do not intend to edit a field, leave it as it is.
+              </FormHelperText>
             </FormControl>
-            <Button mt="4" color="red.300" type="submit">
+            <Button
+              disabled={!title || !description}
+              mt="4"
+              color="red.300"
+              type="submit"
+            >
               Update
             </Button>
           </Box>
