@@ -1,10 +1,37 @@
 import { HStack, Box, Text, Flex, useColorModeValue } from "@chakra-ui/react";
+import axios from "axios";
 import { useState } from "react";
+import { useQueryClient, useMutation } from "react-query";
 
 import SingleTodoDetails from "./SingleTodoDetails";
 
 const SingleTodo = ({ todoData }) => {
+  const queryClient = useQueryClient();
   const [onTodo, setOnTodo] = useState(false);
+
+  const updateCompletedTodo = async ({ todoId, completed }) => {
+    const putCompleted = await axios({
+      method: "PUT",
+      url: "http://localhost:5000/todo/completed",
+      data: {
+        todoId,
+        completed,
+      },
+    });
+  };
+
+  const { mutateAsync: mutateCompleted } = useMutation(updateCompletedTodo);
+
+  const handleCompleted = () => {
+    const updateData = {
+      completed: !todoData.completed,
+      todoId: todoData._id,
+    };
+
+    mutateCompleted(updateData).then(() => {
+      queryClient.invalidateQueries("getAllTodos");
+    });
+  };
 
   return (
     <Flex
@@ -22,11 +49,13 @@ const SingleTodo = ({ todoData }) => {
       >
         <HStack>
           <Text
-            color={useColorModeValue("gray.700", "white")}
             fontSize={{ base: "2xl", md: "xl" }}
             mt={{ base: 2, md: 0 }}
-            fontWeight="bold"
+            fontWeight={todoData.completed ? "normal" : "bold"}
+            color="red.300"
             cursor="pointer"
+            onClick={handleCompleted}
+            textDecoration={todoData.completed ? "line-through" : "none"}
           >
             {todoData.title}
           </Text>
