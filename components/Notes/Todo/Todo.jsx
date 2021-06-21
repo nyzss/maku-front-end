@@ -38,7 +38,7 @@ const Todo = () => {
               <SingleTodo key={todoData._id} todoData={todoData} />
             ))}
 
-          {data.length !== 0 && <TodoProgress todoData={data} />}
+          {data && data.length !== 0 && <TodoProgress todoData={data} />}
 
           <AddTodo />
         </Stack>

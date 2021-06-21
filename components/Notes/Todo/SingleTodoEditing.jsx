@@ -114,7 +114,7 @@ const SingleTodoEditing = ({ todoData }) => {
               </FormHelperText>
             </FormControl>
             <Button
-              disabled={!title || !description}
+              // disabled={!title}
               mt="4"
               color="red.300"
               type="submit"

@@ -81,7 +81,6 @@ const SingleTodoDetails = ({ todoData }) => {
 
           <ModalFooter>
             <ButtonGroup>
-              <Button onClick={onClose}>Close</Button>
               <Button
                 onClick={handleDelete}
                 isLoading={isLoading}
@@ -90,6 +89,7 @@ const SingleTodoDetails = ({ todoData }) => {
               >
                 Delete
               </Button>
+              <Button onClick={onClose}>Close</Button>
             </ButtonGroup>
           </ModalFooter>
         </ModalContent>

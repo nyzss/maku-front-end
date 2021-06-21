@@ -52,7 +52,10 @@ const SingleTodo = ({ todoData }) => {
             fontSize={{ base: "2xl", md: "xl" }}
             mt={{ base: 2, md: 0 }}
             fontWeight={todoData.completed ? "normal" : "bold"}
-            color="red.300"
+            color={useColorModeValue(
+              todoData.completed ? "red.300" : "gray.300",
+              todoData.completed ? "gray.600" : "red.300"
+            )}
             cursor="pointer"
             onClick={handleCompleted}
             textDecoration={todoData.completed ? "line-through" : "none"}
