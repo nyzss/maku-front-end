@@ -19,6 +19,7 @@ import {
   Box,
   Button,
   FormHelperText,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { EditIcon } from "@chakra-ui/icons";
@@ -83,7 +84,7 @@ const SingleTodoEditing = ({ todoData }) => {
 
         <PopoverContent
           borderColor="red.300"
-          bgColor="gray.700"
+          bgColor={useColorModeValue("white", "gray.700")}
           shadow="2xl"
           p={5}
         >
@@ -95,7 +96,7 @@ const SingleTodoEditing = ({ todoData }) => {
               <Input
                 placeholder="Edit the todo title"
                 value={title}
-                bgColor="gray.800"
+                bgColor={useColorModeValue("gray.100", "gray.800")}
                 focusBorderColor="red.300"
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -105,7 +106,7 @@ const SingleTodoEditing = ({ todoData }) => {
               <Textarea
                 placeholder="Edit the todo description"
                 value={description}
-                bgColor="gray.800"
+                bgColor={useColorModeValue("gray.100", "gray.800")}
                 focusBorderColor="red.300"
                 onChange={(e) => setDescription(e.target.value)}
               />

@@ -10,24 +10,23 @@ import {
   Input,
   Textarea,
   Button,
-  Slide,
   FormHelperText,
 } from "@chakra-ui/react";
 import axios from "axios";
 
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { useMutation } from "react-query";
 
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 import GetCurrentUser from "./GetCurrentUser";
 
 import SuccessAlert from "../Alert/SuccessAlert";
 
-const User = ({ userData, loggedIn, getLoggedIn }) => {
-  const router = useRouter();
+const User = ({ userData }) => {
+  // const router = useRouter();
 
   const [editing, setEditing] = useState(false);
 
@@ -57,13 +56,13 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
     data,
   } = useMutation(editUserData);
 
-  useEffect(() => {
-    getLoggedIn();
+  // useEffect(() => {
+  //   getLoggedIn();
 
-    if (!loggedIn) {
-      router.push("/");
-    }
-  }, [userData]);
+  //   if (!loggedIn) {
+  //     router.push("/");
+  //   }
+  // }, [userData]);
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -155,7 +154,6 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       focusBorderColor="red.300"
                       _hover={{ borderColor: "gray.700" }}
-                      disabled={!newImageUrl}
                     />
                     <FormHelperText>
                       If the image you see is not the one you uploaded, that
@@ -169,7 +167,6 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                       placeholder="Write something about yourself!"
                       value={newBio}
                       onChange={(e) => setNewBio(e.target.value)}
-                      disabled={!newBio}
                     />
 
                     <Button
@@ -177,6 +174,7 @@ const User = ({ userData, loggedIn, getLoggedIn }) => {
                       type="submit"
                       bgColor="red.300"
                       mt="4"
+                      disabled={!newBio}
                     >
                       Submit changes
                     </Button>
