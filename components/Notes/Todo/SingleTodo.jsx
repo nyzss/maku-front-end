@@ -46,16 +46,14 @@ const SingleTodo = ({ todoData }) => {
         bg={useColorModeValue("gray.200", "gray.700")}
         shadow="lg"
         rounded="lg"
+        opacity={todoData.completed ? 0.4 : 1}
       >
         <HStack>
           <Text
             fontSize={{ base: "2xl", md: "xl" }}
             mt={{ base: 2, md: 0 }}
             fontWeight={todoData.completed ? "normal" : "bold"}
-            color={useColorModeValue(
-              todoData.completed ? "gray.300" : "red.400",
-              todoData.completed ? "gray.600" : "red.300"
-            )}
+            color={useColorModeValue("red.400", "red.300")}
             cursor="pointer"
             onClick={handleCompleted}
             textDecoration={todoData.completed ? "line-through" : "none"}
@@ -68,7 +66,10 @@ const SingleTodo = ({ todoData }) => {
           {todoData.description}
         </Text>
 
-        <SingleTodoDetails todoData={todoData} />
+        <SingleTodoDetails
+          todoData={todoData}
+          handleCompleted={handleCompleted}
+        />
       </Box>
     </Flex>
   );

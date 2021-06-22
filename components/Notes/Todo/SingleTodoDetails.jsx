@@ -13,6 +13,7 @@ import {
   Text,
   ButtonGroup,
   HStack,
+  Icon,
 } from "@chakra-ui/react";
 
 import axios from "axios";
@@ -23,7 +24,9 @@ import { useQueryClient } from "react-query";
 
 import SingleTodoEditing from "./SingleTodoEditing";
 
-const SingleTodoDetails = ({ todoData }) => {
+import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
+
+const SingleTodoDetails = ({ todoData, handleCompleted }) => {
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -88,6 +91,13 @@ const SingleTodoDetails = ({ todoData }) => {
                 bgColor="red.300"
               >
                 Delete
+              </Button>
+              <Button onClick={handleCompleted}>
+                {todoData.completed ? (
+                  <Icon as={IoClose} />
+                ) : (
+                  <Icon as={IoCheckmarkSharp} />
+                )}
               </Button>
               <Button onClick={onClose}>Close</Button>
             </ButtonGroup>
