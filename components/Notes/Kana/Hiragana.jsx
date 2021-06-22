@@ -5,6 +5,7 @@ import {
   Flex,
   InputLeftElement,
   useColorModeValue,
+  Button,
 } from "@chakra-ui/react";
 import SingleKana from "./SingleKana";
 import { useQuery } from "react-query";
@@ -23,9 +24,11 @@ const getAllHiraganas = async () => {
 const Hiragana = () => {
   const [hiraganaData, setHiraganaData] = useState([]);
 
+  const [showAll, setShowAll] = useState(false);
+
   const [search, setSearch] = useState("");
 
-  const { data: hiragana, isLoading } = useQuery(
+  const { data: hiragana, isLoading, isSuccess } = useQuery(
     "getAllHiraganas",
     getAllHiraganas,
     {
@@ -37,7 +40,6 @@ const Hiragana = () => {
   useEffect(() => {
     if (hiragana) {
       setHiraganaData(hiragana);
-      console.log(hiraganaData);
     }
   }, [hiragana, hiraganaData]);
 
@@ -82,8 +84,24 @@ const Hiragana = () => {
                 return kana;
               }
             })
+            .filter((kana) => {
+              if (!showAll && kana.type !== "extended") {
+                return kana;
+              } else if (showAll) return kana;
+            })
             .map((kana) => <SingleKana key={kana._id} kana={kana} />)}
       </SimpleGrid>
+      <Flex justify="center">
+        <Button
+          onClick={() => setShowAll(!showAll)}
+          bgColor="red.300"
+          size="lg"
+          mt="10"
+          mb="16"
+        >
+          {showAll ? "Hide Extended" : "Show All"}
+        </Button>
+      </Flex>
     </>
   );
 };

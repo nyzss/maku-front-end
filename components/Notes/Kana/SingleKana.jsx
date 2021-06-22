@@ -19,7 +19,7 @@ const SingleKana = ({ kana }) => {
               align="center"
               fontWeight="bold"
               color={useColorModeValue("red.400", "red.300")}
-              fontSize="5xl"
+              fontSize={{ base: "4xl", lg: "5xl" }}
             >
               {kana.roumaji}
             </Text>
@@ -29,15 +29,17 @@ const SingleKana = ({ kana }) => {
             <Text
               my="2"
               align="center"
-              opacity="0.4"
-              fontSize="md"
+              opacity="0.6"
+              fontSize="lg"
               color="red.300"
             >
               {kana.kana}
             </Text>
           </>
         ) : (
-          <Text fontSize="7xl">{kana.kana}</Text>
+          <Text fontSize={{ base: "5xl", md: "5xl", lg: "6xl", xl: "7xl" }}>
+            {kana.kana}
+          </Text>
         )}
       </Box>
     </>
