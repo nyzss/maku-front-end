@@ -18,9 +18,22 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-import Hiragana from "./../../components/Notes/Kana/Hiragana";
+import Kana from "../../components/Notes/Kana/Kana";
+import axios from "axios";
 
-const Notes = () => {
+export async function getStaticProps() {
+  const getHiragana = await axios.get("http://localhost:5000/kana/hiragana");
+  const getKatakana = await axios.get("http://localhost:5000/kana/katakana");
+
+  return {
+    props: {
+      hiragana: getHiragana.data,
+      katakana: getKatakana.data,
+    },
+  };
+}
+
+const Notes = ({ hiragana, katakana }) => {
   const router = useRouter();
   const { userData } = useSelector((state) => state.user);
 
@@ -80,9 +93,7 @@ const Notes = () => {
             <Todo loggedIn={loggedIn} getLoggedIn={getLoggedIn} />
           </TabPanel>
           <TabPanel m="0" p="0">
-            {/* <Text mt="32" align="center">
-            </Text> */}
-            <Hiragana />
+            <Kana hiragana={hiragana} katakana={katakana} />
           </TabPanel>
           <TabPanel m="0" p="0">
             <Text mt="32" align="center">

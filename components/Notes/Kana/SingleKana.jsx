@@ -23,15 +23,15 @@ const SingleKana = ({ kana }) => {
             >
               {kana.roumaji}
             </Text>
-            <Text align="center" opacity="0.3" fontSize="md">
+            <Text align="center" opacity="0.4" fontSize="md">
               {kana.type}
             </Text>
             <Text
               my="2"
               align="center"
-              opacity="0.6"
+              opacity="0.8"
               fontSize="lg"
-              color="red.300"
+              color="red.400"
             >
               {kana.kana}
             </Text>
