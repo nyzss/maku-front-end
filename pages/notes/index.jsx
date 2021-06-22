@@ -18,6 +18,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+import Hiragana from "./../../components/Notes/Kana/Hiragana";
+
 const Notes = () => {
   const router = useRouter();
   const { userData } = useSelector((state) => state.user);
@@ -78,9 +80,9 @@ const Notes = () => {
             <Todo loggedIn={loggedIn} getLoggedIn={getLoggedIn} />
           </TabPanel>
           <TabPanel m="0" p="0">
-            <Text mt="32" align="center">
-              hiragana and katakana comes here
-            </Text>
+            {/* <Text mt="32" align="center">
+            </Text> */}
+            <Hiragana />
           </TabPanel>
           <TabPanel m="0" p="0">
             <Text mt="32" align="center">

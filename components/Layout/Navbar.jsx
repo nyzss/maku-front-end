@@ -20,19 +20,18 @@ import { BiSun, BiMoon } from "react-icons/bi";
 import LoginModal from "../Auth/LoginModal";
 import RegisterModal from "../Auth/RegisterModal";
 import CurrentUserNav from "./CurrentUserNav";
-
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 
 const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { loggedIn, getLoggedIn } = useContext(AuthContext);
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
 
   return (
-    <div>
+    <>
       <Flex
         as="nav"
         align="center"
@@ -129,7 +128,7 @@ const Navbar = () => {
           </HStack>
         </Box>
       </Flex>
-    </div>
+    </>
   );
 };
 

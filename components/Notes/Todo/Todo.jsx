@@ -14,7 +14,9 @@ const getAllTodos = async () => {
 };
 
 const Todo = () => {
-  const { data, isLoading } = useQuery("getAllTodos", getAllTodos);
+  const { data, isLoading } = useQuery("getAllTodos", getAllTodos, {
+    staleTime: 5 * 60 * 1000,
+  });
 
   return (
     <>

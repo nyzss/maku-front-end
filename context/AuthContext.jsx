@@ -1,16 +1,16 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
-function AuthContextProvider(props) {
+const AuthContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
 
-  async function getLoggedIn() {
-    const loggedInRes = await axios.get("http://localhost:5000/auth/check");
+  const getLoggedIn = async () => {
+    const loggedin = await axios.get("http://localhost:5000/auth/check");
 
-    setLoggedIn(loggedInRes.data);
-  }
+    setLoggedIn(loggedin.data);
+  };
 
   useEffect(() => {
     getLoggedIn();
@@ -18,10 +18,10 @@ function AuthContextProvider(props) {
 
   return (
     <AuthContext.Provider value={{ loggedIn, getLoggedIn }}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthContext;
 export { AuthContextProvider };
