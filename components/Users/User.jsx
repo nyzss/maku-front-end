@@ -11,6 +11,10 @@ import {
   Textarea,
   Button,
   FormHelperText,
+  Slide,
+  Circle,
+  Badge,
+  Tooltip,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -19,21 +23,17 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { useMutation } from "react-query";
 
-// import { useRouter } from "next/router";
-
 import GetCurrentUser from "./GetCurrentUser";
 
 import SuccessAlert from "../Alert/SuccessAlert";
 
 const User = ({ userData }) => {
-  // const router = useRouter();
-
   const [editing, setEditing] = useState(false);
 
   const [newImageUrl, setNewImageUrl] = useState(`${userData.avatarUrl}`);
   const [newBio, setNewBio] = useState(`${userData.bio}`);
 
-  const [succesAlert, setSuccesAlert] = useState(false);
+  const [successAlert, setSuccessAlert] = useState(false);
 
   const editUserData = async ({ bio, avatarUrl }) => {
     const postUserData = await axios({
@@ -49,20 +49,9 @@ const User = ({ userData }) => {
 
     return postUserData.data;
   };
-  const {
-    mutateAsync: mutateEdit,
-    isLoading,
-    status,
-    data,
-  } = useMutation(editUserData);
-
-  // useEffect(() => {
-  //   getLoggedIn();
-
-  //   if (!loggedIn) {
-  //     router.push("/");
-  //   }
-  // }, [userData]);
+  const { mutateAsync: mutateEdit, isLoading, status, data } = useMutation(
+    editUserData
+  );
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -73,10 +62,10 @@ const User = ({ userData }) => {
     };
 
     mutateEdit(changedData).then(() => {
+      setSuccessAlert(true);
       setEditing(false);
-      setSuccesAlert(true);
       setTimeout(() => {
-        setSuccesAlert(false);
+        setSuccessAlert(false);
       }, 3000);
     });
   };
@@ -84,19 +73,24 @@ const User = ({ userData }) => {
   return (
     <>
       {status === "success" && <GetCurrentUser />}
-      <Flex p={50} w="full" alignItems="center" justifyContent="center">
+      <Flex
+        p={{ base: 4, md: 24, lg: 40 }}
+        pt={{ base: 24, md: 48 }}
+        w="full"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Box
-          mx="auto"
           rounded="lg"
           shadow="md"
           bg={useColorModeValue("gray.200", "gray.700")}
-          width="2xl"
-          maxW="4xl"
+          width="4xl"
+          maxW="6xl"
         >
           <Image
             roundedTop="lg"
-            w="full"
-            h={64}
+            w="auto"
+            h="auto"
             fit="cover"
             src={userData.avatarUrl}
             fallbackSrc="https://source.unsplash.com/1600x900/?japan"
@@ -201,9 +195,11 @@ const User = ({ userData }) => {
           </Box>
         </Box>
       </Flex>
-      {/* <Slide direction="bottom" in={succesAlert} style={{ zIndex: 10 }}>
-        <SuccessAlert succesMessage={data} />
-      </Slide> */}
+      <Slide direction="bottom" in={successAlert} style={{ zIndex: 10 }}>
+        <div onClick={() => setSuccessAlert(false)}>
+          <SuccessAlert successMessage={data} />
+        </div>
+      </Slide>
     </>
   );
 };
