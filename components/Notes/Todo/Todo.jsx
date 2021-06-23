@@ -2,7 +2,7 @@ import SingleTodo from "./SingleTodo";
 
 import AddTodo from "./AddTodo";
 
-import { Flex, Stack, Box, Progress, Spinner } from "@chakra-ui/react";
+import { Flex, Stack, Box, Spinner } from "@chakra-ui/react";
 
 import axios from "axios";
 import { useQuery } from "react-query";

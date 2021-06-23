@@ -16,7 +16,7 @@ const getCurrentUserData = async () => {
 
 const GetCurrentUser = () => {
   const dispatch = useDispatch();
-  const { data, isSuccess, isError, refetch, isFetching, isFetched } = useQuery(
+  const { data, isFetching, isFetched } = useQuery(
     "getCurrentUserData",
     getCurrentUserData
   );

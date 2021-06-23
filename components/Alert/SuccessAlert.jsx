@@ -2,7 +2,7 @@ import { Flex, Text, Icon, useColorModeValue, Box } from "@chakra-ui/react";
 
 import { IoMdCheckmarkCircle } from "react-icons/io";
 
-const SuccesAlert = ({ succesMessage }) => {
+const SuccesAlert = ({ successMessage }) => {
   return (
     <>
       <Flex
@@ -14,6 +14,7 @@ const SuccesAlert = ({ succesMessage }) => {
         rounded="lg"
         overflow="hidden"
         my="4"
+        cursor="pointer"
       >
         <Flex justifyContent="center" alignItems="center" w={12} bg="green.500">
           <Icon as={IoMdCheckmarkCircle} color="white" boxSize={6} />
@@ -33,7 +34,7 @@ const SuccesAlert = ({ succesMessage }) => {
               color={useColorModeValue("gray.600", "gray.200")}
               fontSize="sm"
             >
-              {succesMessage}
+              {successMessage && successMessage}
             </Text>
           </Box>
         </Box>

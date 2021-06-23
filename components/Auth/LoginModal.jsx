@@ -18,21 +18,32 @@ import {
   Collapse,
   Icon,
   Text,
+  Slide,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 import axios from "axios";
-
 import { useMutation } from "react-query";
+
 import { MdRemoveCircle } from "react-icons/md";
 
+import { useRouter } from "next/router";
+
 const LoginModal = ({ getLoggedIn, loggedIn }) => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [successAuth, setSuccessAuth] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -57,7 +68,9 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
     });
   };
 
-  const { mutateAsync: mutateLogin, reset, isLoading } = useMutation(loginUser);
+  const { mutateAsync: mutateLogin, reset, isLoading, isSuccess } = useMutation(
+    loginUser
+  );
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -68,23 +81,30 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
     };
 
     mutateLogin(userData).then(() => {
-      reset();
-      getLoggedIn();
-      onClose();
-      setEmail("");
-      setPassword("");
+      if (isSuccess) {
+        getLoggedIn();
+        setSuccessAuth(true);
+        reset();
+        onClose();
+        setEmail("");
+        setPassword("");
+        setTimeout(() => {
+          setSuccessAuth(false);
+        }, 3000);
+        router.push("/notes");
+      }
     });
   };
 
   return (
     <>
-      {/* <Slide direction="bottom" in={isSuccess} style={{ zIndex: 10 }}>
+      <Slide direction="bottom" in={successAuth} style={{ zIndex: 10 }}>
         <Alert status="success">
           <AlertIcon />
           <AlertTitle mr={2}>Success!</AlertTitle>
           <AlertDescription>You logged in.</AlertDescription>
         </Alert>
-      </Slide> */}
+      </Slide>
 
       {loggedIn === false && (
         <Button

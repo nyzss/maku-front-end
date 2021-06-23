@@ -5,7 +5,11 @@ import { setUserData } from "../../store/slices/userSlice";
 
 import { useRouter } from "next/router";
 
+import { useQueryClient } from "react-query";
+
 const Logout = ({ getLoggedIn }) => {
+  const queryClient = useQueryClient();
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -14,6 +18,8 @@ const Logout = ({ getLoggedIn }) => {
       getLoggedIn();
       dispatch(setUserData({}));
       router.push("/");
+      queryClient.clear();
+      dispatch(setUserData({}));
     });
   };
 

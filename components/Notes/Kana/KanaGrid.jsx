@@ -1,4 +1,4 @@
-import { SimpleGrid, Flex, Button } from "@chakra-ui/react";
+import { SimpleGrid, Flex, ButtonGroup, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import SingleKana from "./SingleKana";
 
@@ -36,15 +36,17 @@ const KanaGrid = ({ kana, search }) => {
           ))}
       </SimpleGrid>
       <Flex justify="center">
-        <Button
-          onClick={() => setShowAll(!showAll)}
-          bgColor="red.300"
-          size="lg"
-          mt="10"
-          mb="16"
-        >
-          {showAll ? "Hide Extended" : "Show All"}
-        </Button>
+        <ButtonGroup size="md" mt="10" mb="16" spacing="8" align="center">
+          <Button onClick={() => setShowAll(!showAll)} bgColor="red.300">
+            {showAll ? "Hide Extended" : "Show All"}
+          </Button>
+          <Button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            bgColor="red.300"
+          >
+            Back to top
+          </Button>
+        </ButtonGroup>
       </Flex>
     </>
   );

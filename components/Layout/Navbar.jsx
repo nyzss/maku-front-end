@@ -48,7 +48,7 @@ const Navbar = () => {
             as="h1"
             size="lg"
             fontFamily="monospace"
-            color={useColorModeValue("red.400", "red.200")}
+            color={useColorModeValue("red.400", "red.400")}
             letterSpacing={"tighter"}
           >
             maku
@@ -80,23 +80,25 @@ const Navbar = () => {
                 Home
               </Button>
             </Link>
-            <Link href="/notes">
-              <Button
-                color={useColorModeValue("gray.700", "white")}
-                variant="link"
-              >
-                Notes
-              </Button>
-            </Link>
             {loggedIn === true && (
-              <Link href="/users">
-                <Button
-                  variant="link"
-                  color={useColorModeValue("gray.700", "white")}
-                >
-                  My Profile
-                </Button>
-              </Link>
+              <>
+                <Link href="/notes">
+                  <Button
+                    color={useColorModeValue("gray.700", "white")}
+                    variant="link"
+                  >
+                    Notes
+                  </Button>
+                </Link>
+                <Link href="/users">
+                  <Button
+                    variant="link"
+                    color={useColorModeValue("gray.700", "white")}
+                  >
+                    My Profile
+                  </Button>
+                </Link>
+              </>
             )}
           </ButtonGroup>
         </Stack>

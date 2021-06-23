@@ -19,15 +19,25 @@ import {
   ListIcon,
   Box,
   Collapse,
+  Slide,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { MdRemoveCircle } from "react-icons/md";
 import { useMutation } from "react-query";
+import { useRouter } from "next/router";
 
 const RegisterModal = ({ getLoggedIn, loggedIn }) => {
+  const router = useRouter();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
+
+  const [successAuth, setSuccessAuth] = useState(false);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -69,6 +79,7 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
     mutateAsync: mutateRegister,
     reset,
     isLoading,
+    isSuccess,
   } = useMutation(registerUser);
 
   const handleCreateAccount = (e) => {
@@ -83,18 +94,34 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
     };
 
     mutateRegister(newUserData).then(() => {
-      reset();
-      getLoggedIn();
-      onClose();
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setPasswordConfirmation("");
+      if (isSuccess) {
+        getLoggedIn();
+        setSuccessAuth(true);
+        reset();
+        onClose();
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setPasswordConfirmation("");
+
+        setTimeout(() => {
+          setSuccessAuth(false);
+        }, 3000);
+        router.push("/notes");
+      }
     });
   };
 
   return (
     <>
+      <Slide direction="bottom" in={successAuth} style={{ zIndex: 10 }}>
+        <Alert status="success">
+          <AlertIcon />
+          <AlertTitle mr={2}>Success!</AlertTitle>
+          <AlertDescription>You created an account.</AlertDescription>
+        </Alert>
+      </Slide>
+
       {loggedIn === false && (
         <Button
           variant="ghost"
