@@ -55,7 +55,7 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
   }) => {
     const postRegisterUser = await axios({
       method: "POST",
-      url: "http://localhost:5000/auth/",
+      url: "https://maku-backend.herokuapp.com/auth/",
       data: {
         email,
         username,

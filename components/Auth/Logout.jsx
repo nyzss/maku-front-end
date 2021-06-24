@@ -14,13 +14,15 @@ const Logout = ({ getLoggedIn }) => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    await axios.get("http://localhost:5000/auth/logout").then(() => {
-      getLoggedIn();
-      dispatch(setUserData({}));
-      router.push("/");
-      queryClient.clear();
-      dispatch(setUserData({}));
-    });
+    await axios
+      .get("https://maku-backend.herokuapp.com/auth/logout")
+      .then(() => {
+        getLoggedIn();
+        dispatch(setUserData({}));
+        router.push("/");
+        queryClient.clear();
+        dispatch(setUserData({}));
+      });
   };
 
   return (

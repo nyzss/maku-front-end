@@ -27,7 +27,7 @@ const AddTodo = () => {
   const sendTodoData = async ({ title, description }) => {
     const post = await axios({
       method: "POST",
-      url: "http://localhost:5000/todo",
+      url: "https://maku-backend.herokuapp.com/todo",
       data: { title: title, description: description },
     });
 

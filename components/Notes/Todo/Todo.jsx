@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import TodoProgress from "./TodoProgress";
 
 const getAllTodos = async () => {
-  const fetchTodos = await axios.get("http://localhost:5000/todo");
+  const fetchTodos = await axios.get("https://maku-backend.herokuapp.com/todo");
   return fetchTodos.data;
 };
 

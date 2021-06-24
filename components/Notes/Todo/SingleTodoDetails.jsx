@@ -35,7 +35,7 @@ const SingleTodoDetails = ({ todoData, handleCompleted }) => {
   const handleDelete = async () => {
     setIsLoading(true);
     await axios({
-      url: "http://localhost:5000/todo/delete",
+      url: "https://maku-backend.herokuapp.com/delete",
       method: "DELETE",
       data: {
         todoId: todoData._id,

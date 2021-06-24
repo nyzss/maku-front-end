@@ -50,7 +50,7 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
   const loginUser = async ({ email, password }) => {
     const postLoginUser = await axios({
       method: "POST",
-      url: "http://localhost:5000/auth/login",
+      url: "https://maku-backend.herokuapp.com/auth/login",
       data: {
         email,
         password,

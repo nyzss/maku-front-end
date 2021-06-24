@@ -12,7 +12,7 @@ const SingleTodo = ({ todoData }) => {
   const updateCompletedTodo = async ({ todoId, completed }) => {
     const putCompleted = await axios({
       method: "PUT",
-      url: "http://localhost:5000/todo/completed",
+      url: "https://maku-backend.herokuapp.com/completed",
       data: {
         todoId,
         completed,

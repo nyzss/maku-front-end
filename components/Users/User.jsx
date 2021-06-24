@@ -38,7 +38,7 @@ const User = ({ userData }) => {
   const editUserData = async ({ bio, avatarUrl }) => {
     const postUserData = await axios({
       method: "PUT",
-      url: "http://localhost:5000/users/edit",
+      url: "https://maku-backend.herokuapp.com/edit",
       data: {
         bio,
         avatarUrl,

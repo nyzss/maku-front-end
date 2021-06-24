@@ -38,7 +38,7 @@ const SingleTodoEditing = ({ todoData }) => {
   const updateEditingData = async ({ title, description, todoId }) => {
     const editingData = await axios({
       method: "PUT",
-      url: "http://localhost:5000/todo/edit",
+      url: "https://maku-backend.herokuapp.com/edit",
       data: {
         title,
         description,
@@ -49,11 +49,9 @@ const SingleTodoEditing = ({ todoData }) => {
     return editingData.data;
   };
 
-  const {
-    mutateAsync: mutateEdit,
-    isLoading,
-    data,
-  } = useMutation(updateEditingData);
+  const { mutateAsync: mutateEdit, isLoading, data } = useMutation(
+    updateEditingData
+  );
 
   const handleEdit = (e) => {
     e.preventDefault();
