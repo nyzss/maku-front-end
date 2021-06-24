@@ -38,7 +38,7 @@ const SingleTodoEditing = ({ todoData }) => {
   const updateEditingData = async ({ title, description, todoId }) => {
     const editingData = await axios({
       method: "PUT",
-      url: "https://maku-backend.herokuapp.com/edit",
+      url: "https://maku-backend.herokuapp.com/todo/edit",
       data: {
         title,
         description,

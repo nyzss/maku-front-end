@@ -6,7 +6,7 @@ import { setUserData } from "../../store/slices/userSlice";
 
 const getCurrentUserData = async () => {
   const fetchData = await axios
-    .get("https://maku-backend.herokuapp.com/me")
+    .get("https://maku-backend.herokuapp.com/users/me")
     .catch((err) => {
       console.log(err);
     });

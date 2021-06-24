@@ -8,7 +8,7 @@ const AuthContextProvider = ({ children }) => {
 
   const getLoggedIn = async () => {
     const loggedin = await axios.get(
-      "https://maku-backend.herokuapp.com/check"
+      "https://maku-backend.herokuapp.com/auth/check"
     );
 
     setLoggedIn(loggedin.data);
