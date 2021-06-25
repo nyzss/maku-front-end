@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 
 import { useQueryClient } from "react-query";
 
+import { api } from "../../utils/api";
+
 const Logout = ({ getLoggedIn }) => {
   const queryClient = useQueryClient();
 
@@ -14,15 +16,13 @@ const Logout = ({ getLoggedIn }) => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    await axios
-      .get("https://maku-backend.herokuapp.com/auth/logout")
-      .then(() => {
-        getLoggedIn();
-        dispatch(setUserData({}));
-        router.push("/");
-        queryClient.clear();
-        dispatch(setUserData({}));
-      });
+    await axios.get(`${api}/api/auth/logout`).then(() => {
+      getLoggedIn();
+      dispatch(setUserData({}));
+      router.push("/");
+      queryClient.clear();
+      dispatch(setUserData({}));
+    });
   };
 
   return (

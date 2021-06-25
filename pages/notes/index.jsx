@@ -21,13 +21,11 @@ import {
 import Kana from "../../components/Notes/Kana/Kana";
 import axios from "axios";
 
+import { api } from "../../utils/api";
+
 export async function getStaticProps() {
-  const getHiragana = await axios.get(
-    "https://maku-backend.herokuapp.com/kana/hiragana"
-  );
-  const getKatakana = await axios.get(
-    "https://maku-backend.herokuapp.com/kana/katakana"
-  );
+  const getHiragana = await axios.get(`${api}/api/kana/hiragana`);
+  const getKatakana = await axios.get(`${api}/api/kana/katakana`);
 
   return {
     props: {

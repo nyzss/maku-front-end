@@ -31,6 +31,8 @@ import { MdRemoveCircle } from "react-icons/md";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 
+import { api } from "../../utils/api";
+
 const RegisterModal = ({ getLoggedIn, loggedIn }) => {
   const router = useRouter();
 
@@ -55,7 +57,7 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
   }) => {
     const postRegisterUser = await axios({
       method: "POST",
-      url: "https://maku-backend.herokuapp.com/auth/",
+      url: `${api}/api/auth/`,
       data: {
         email,
         username,
@@ -73,6 +75,8 @@ const RegisterModal = ({ getLoggedIn, loggedIn }) => {
         setError(false);
       }, 4000);
     });
+
+    return postRegisterUser;
   };
 
   const {

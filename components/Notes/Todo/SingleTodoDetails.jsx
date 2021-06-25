@@ -26,6 +26,8 @@ import SingleTodoEditing from "./SingleTodoEditing";
 
 import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
 
+import { api } from "../../../utils/api";
+
 const SingleTodoDetails = ({ todoData, handleCompleted }) => {
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,7 +37,7 @@ const SingleTodoDetails = ({ todoData, handleCompleted }) => {
   const handleDelete = async () => {
     setIsLoading(true);
     await axios({
-      url: "https://maku-backend.herokuapp.com/todo/delete",
+      url: `${api}/api/todo/delete`,
       method: "DELETE",
       data: {
         todoId: todoData._id,

@@ -33,6 +33,8 @@ import { MdRemoveCircle } from "react-icons/md";
 
 import { useRouter } from "next/router";
 
+import { api } from "../../utils/api";
+
 const LoginModal = ({ getLoggedIn, loggedIn }) => {
   const router = useRouter();
 
@@ -50,7 +52,7 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
   const loginUser = async ({ email, password }) => {
     const postLoginUser = await axios({
       method: "POST",
-      url: "https://maku-backend.herokuapp.com/auth/login",
+      url: `${api}/api/auth/login`,
       data: {
         email,
         password,
@@ -72,7 +74,7 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
     loginUser
   );
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const userData = {
@@ -80,8 +82,8 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
       password,
     };
 
-    mutateLogin(userData).then(() => {
-      if (isSuccess) {
+    await mutateLogin(userData).then(() => {
+      if (isSuccess && !isLoading) {
         getLoggedIn();
         setSuccessAuth(true);
         reset();
@@ -122,77 +124,72 @@ const LoginModal = ({ getLoggedIn, loggedIn }) => {
         <ModalContent mt="24">
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
-          <Box as="form" onSubmit={handleLogin}>
-            <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  value={email}
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="maku@example.moe"
-                />
-              </FormControl>
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Email</FormLabel>
+              <Input
+                value={email}
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="maku@example.moe"
+              />
+            </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>Password</FormLabel>
-                <InputGroup size="md">
-                  <Input
-                    pr="4.5rem"
-                    type={show ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter password"
-                  />
-                  <InputRightElement width="4.5rem">
-                    <Button
-                      h="1.75rem"
-                      size="sm"
-                      onClick={() => setShow(!show)}
-                    >
-                      {show ? "Hide" : "Show"}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-              <Collapse animateOpacity unmountOnExit in={error} offsetY="20px">
-                <Box
-                  onClick={() => setError(false)}
-                  cursor="pointer"
-                  bgColor={useColorModeValue("red.200", "red.400")}
-                  borderRadius="lg"
-                  padding="12px"
-                  fontSize="sm"
-                  mt="4"
-                  mx="8"
-                  textAlign="center"
-                >
-                  <Icon
-                    fontSize="lg"
-                    mr="6px"
-                    as={MdRemoveCircle}
-                    color="red.500"
-                  />
-                  <Text as="span" fontWeight="bold">
-                    {errorMessage}
-                  </Text>
-                </Box>
-              </Collapse>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                variant="ghost"
-                bgColor={useColorModeValue("red.300", "red.300")}
-                mr={3}
-                type="submit"
-                isLoading={isLoading}
-                disabled={!email || !password}
+            <FormControl mt={4}>
+              <FormLabel>Password</FormLabel>
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <Collapse animateOpacity unmountOnExit in={error} offsetY="20px">
+              <Box
+                onClick={() => setError(false)}
+                cursor="pointer"
+                bgColor={useColorModeValue("red.200", "red.400")}
+                borderRadius="lg"
+                padding="12px"
+                fontSize="sm"
+                mt="4"
+                mx="8"
+                textAlign="center"
               >
-                Login
-              </Button>
-              <Button onClick={onClose}>Cancel</Button>
-            </ModalFooter>
-          </Box>
+                <Icon
+                  fontSize="lg"
+                  mr="6px"
+                  as={MdRemoveCircle}
+                  color="red.500"
+                />
+                <Text as="span" fontWeight="bold">
+                  {errorMessage}
+                </Text>
+              </Box>
+            </Collapse>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              variant="ghost"
+              bgColor={useColorModeValue("red.300", "red.300")}
+              mr={3}
+              type="submit"
+              isLoading={isLoading}
+              disabled={!email || !password}
+              onClick={handleLogin}
+            >
+              Login
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

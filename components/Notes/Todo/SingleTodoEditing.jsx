@@ -28,6 +28,8 @@ import axios from "axios";
 
 import { useQueryClient } from "react-query";
 
+import { api } from "../../../utils/api";
+
 const SingleTodoEditing = ({ todoData }) => {
   const queryClient = useQueryClient();
 
@@ -38,7 +40,7 @@ const SingleTodoEditing = ({ todoData }) => {
   const updateEditingData = async ({ title, description, todoId }) => {
     const editingData = await axios({
       method: "PUT",
-      url: "https://maku-backend.herokuapp.com/todo/edit",
+      url: `${api}/api/todo/edit`,
       data: {
         title,
         description,
@@ -49,9 +51,7 @@ const SingleTodoEditing = ({ todoData }) => {
     return editingData.data;
   };
 
-  const { mutateAsync: mutateEdit, isLoading, data } = useMutation(
-    updateEditingData
-  );
+  const { mutateAsync: mutateEdit } = useMutation(updateEditingData);
 
   const handleEdit = (e) => {
     e.preventDefault();

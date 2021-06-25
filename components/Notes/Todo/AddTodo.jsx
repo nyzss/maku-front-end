@@ -18,6 +18,8 @@ import axios from "axios";
 
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 
+import { api } from "../../../utils/api";
+
 const AddTodo = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -27,7 +29,7 @@ const AddTodo = () => {
   const sendTodoData = async ({ title, description }) => {
     const post = await axios({
       method: "POST",
-      url: "https://maku-backend.herokuapp.com/todo",
+      url: `${api}/api/todo`,
       data: { title: title, description: description },
     });
 

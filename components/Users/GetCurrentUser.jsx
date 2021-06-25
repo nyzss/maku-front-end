@@ -4,12 +4,12 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/slices/userSlice";
 
+import { api } from "../../utils/api";
+
 const getCurrentUserData = async () => {
-  const fetchData = await axios
-    .get("https://maku-backend.herokuapp.com/users/me")
-    .catch((err) => {
-      console.log(err);
-    });
+  const fetchData = await axios.get(`${api}/api/users/me`).catch((err) => {
+    console.log(err);
+  });
 
   return fetchData.data;
 };

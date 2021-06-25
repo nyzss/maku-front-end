@@ -27,6 +27,8 @@ import GetCurrentUser from "./GetCurrentUser";
 
 import SuccessAlert from "../Alert/SuccessAlert";
 
+import { api } from "../../utils/api";
+
 const User = ({ userData }) => {
   const [editing, setEditing] = useState(false);
 
@@ -38,7 +40,7 @@ const User = ({ userData }) => {
   const editUserData = async ({ bio, avatarUrl }) => {
     const postUserData = await axios({
       method: "PUT",
-      url: "https://maku-backend.herokuapp.com/users/edit",
+      url: `${api}/api/users/edit`,
       data: {
         bio,
         avatarUrl,

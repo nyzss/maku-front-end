@@ -5,6 +5,8 @@ import { useQueryClient, useMutation } from "react-query";
 
 import SingleTodoDetails from "./SingleTodoDetails";
 
+import { api } from "../../../utils/api";
+
 const SingleTodo = ({ todoData }) => {
   const queryClient = useQueryClient();
   const [onTodo, setOnTodo] = useState(false);
@@ -12,12 +14,14 @@ const SingleTodo = ({ todoData }) => {
   const updateCompletedTodo = async ({ todoId, completed }) => {
     const putCompleted = await axios({
       method: "PUT",
-      url: "https://maku-backend.herokuapp.com/todo/completed",
+      url: `${api}/api/todo/completed`,
       data: {
         todoId,
         completed,
       },
     });
+
+    return putCompleted.data;
   };
 
   const { mutateAsync: mutateCompleted } = useMutation(updateCompletedTodo);
